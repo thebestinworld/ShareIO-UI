@@ -7,6 +7,10 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { FileDataUploadComponent } from './file-data-upload/file-data-upload.component';
+import { FileComponent } from './file/file.component';
+import { FileViewComponent } from './file-view/file-view.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -15,6 +19,10 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'user', component: BoardUserComponent },
   { path: 'admin', component: BoardAdminComponent },
+  { path: 'file/upload', component: FileUploadComponent },
+  { path: 'file/upload/data', component: FileDataUploadComponent },
+  { path: 'file', component: FileComponent },
+  { path: 'file/:id', component: FileViewComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

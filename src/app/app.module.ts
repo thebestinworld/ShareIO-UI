@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -14,6 +14,10 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { FileDataUploadComponent } from './file-data-upload/file-data-upload.component';
+import { FileComponent } from './file/file.component';
+import { FileViewComponent } from './file-view/file-view.component';
 
 @NgModule({
   declarations: [
@@ -23,11 +27,16 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     HomeComponent,
     ProfileComponent,
     BoardAdminComponent,
-    BoardUserComponent
+    BoardUserComponent,
+    FileUploadComponent,
+    FileDataUploadComponent,
+    FileComponent,
+    FileViewComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     FormsModule,
     HttpClientModule
   ],
