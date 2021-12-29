@@ -53,8 +53,8 @@ export class FileDataUploadComponent implements OnInit {
             } else if (event instanceof HttpResponse) {
               this.message = event.body.message;
               setTimeout(() => {
-                this.router.navigate(['/']);
-              }, 3000);
+                this.router.navigate(['/file']);
+              }, 300);
             }
           },
           (err: any) => {

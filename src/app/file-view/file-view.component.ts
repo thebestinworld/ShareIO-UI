@@ -1,8 +1,9 @@
 import { JsonpClientBackend } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { File } from '../_models/file';
+import { FileDTO } from '../_models/file';
 import { FileService } from '../_services/file.service';
 
 @Component({
@@ -12,11 +13,33 @@ import { FileService } from '../_services/file.service';
 })
 export class FileViewComponent implements OnInit {
 
-  file!: File;
-  constructor(private fileService: FileService, private route: ActivatedRoute) { }
+  file!: FileDTO;
+  image: any
+  constructor(private fileService: FileService, private activatedRoute: ActivatedRoute, 
+              private route: Router, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.fileService.getFile(id).subscribe(data => { this.file = data });
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.fileService.getFile(id).subscribe(data => { 
+      this.file = data 
+      this.image = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${this.file.encodedData}`);
+    });
+    
+  }
+
+  updateFile(){
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.fileService.setFile(this.file);
+    this.route.navigate(['file/'+  id +'/update'])
+  }
+
+  deleteFile(){
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.fileService.deleteFile(id).subscribe( {
+        next: (data) => {
+          this.route.navigate(['/file'])
+        },
+      });  
+   
   }
 }

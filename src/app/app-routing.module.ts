@@ -11,6 +11,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FileDataUploadComponent } from './file-data-upload/file-data-upload.component';
 import { FileComponent } from './file/file.component';
 import { FileViewComponent } from './file-view/file-view.component';
+import { FileUpdateComponent } from './file-update/file-update.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'file/upload/data', component: FileDataUploadComponent },
   { path: 'file', component: FileComponent },
   { path: 'file/:id', component: FileViewComponent },
+  { path: 'file/:id/update', component: FileUpdateComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

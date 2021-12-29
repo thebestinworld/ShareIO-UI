@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TokenStorageService } from './_services/token-storage.service';
 import { Subscription } from 'rxjs';
 import { EventBusService } from './_shared/event-bus.service';
+import { NotificationComponent } from './notification/notification.component';
 
 @Component({
   selector: 'app-root',

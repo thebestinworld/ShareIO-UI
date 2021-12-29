@@ -18,6 +18,10 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FileDataUploadComponent } from './file-data-upload/file-data-upload.component';
 import { FileComponent } from './file/file.component';
 import { FileViewComponent } from './file-view/file-view.component';
+import { FileUpdateComponent } from './file-update/file-update.component';
+import { NotificationComponent } from './notification/notification.component';
+import { ModalModule } from './_modal';
+
 
 @NgModule({
   declarations: [
@@ -31,14 +35,17 @@ import { FileViewComponent } from './file-view/file-view.component';
     FileUploadComponent,
     FileDataUploadComponent,
     FileComponent,
-    FileViewComponent
+    FileViewComponent,
+    FileUpdateComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ModalModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
