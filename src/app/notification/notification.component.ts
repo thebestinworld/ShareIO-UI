@@ -12,6 +12,7 @@ import { TokenStorageService } from '../_services/token-storage.service';
 export class NotificationComponent implements OnInit {
 
   message! : string;
+  fileId! : string;
   disabled = true;
   private stompClient: any;
   constructor(private modalService: ModalService, private tokenStorageSerivce: TokenStorageService) { }
@@ -48,8 +49,9 @@ export class NotificationComponent implements OnInit {
     var user = this.tokenStorageSerivce.getUser();
     /*Check if the notification is for the current user*/
     if (user.id === notifcation.userId) {
-      var message = notifcation.message + ' ' + notifcation.userId;   
-      this.message = message;
+      console.log(notifcation)
+      this.message = notifcation.message;
+      this.fileId = notifcation.fileId
       this.modalService.open('custom-modal-1');
     }
   }

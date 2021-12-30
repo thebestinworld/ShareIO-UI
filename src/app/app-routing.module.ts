@@ -12,6 +12,8 @@ import { FileDataUploadComponent } from './file-data-upload/file-data-upload.com
 import { FileComponent } from './file/file.component';
 import { FileViewComponent } from './file-view/file-view.component';
 import { FileUpdateComponent } from './file-update/file-update.component';
+import { ShareFileComponent } from './share-file/share-file.component';
+import { NotificationViewComponent } from './notification-view/notification-view.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -25,6 +27,8 @@ const routes: Routes = [
   { path: 'file', component: FileComponent },
   { path: 'file/:id', component: FileViewComponent },
   { path: 'file/:id/update', component: FileUpdateComponent },
+  { path: 'file/:id/share', component: ShareFileComponent },
+  { path: 'notification', component: NotificationViewComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

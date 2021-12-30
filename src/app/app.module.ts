@@ -21,6 +21,8 @@ import { FileViewComponent } from './file-view/file-view.component';
 import { FileUpdateComponent } from './file-update/file-update.component';
 import { NotificationComponent } from './notification/notification.component';
 import { ModalModule } from './_modal';
+import { ShareFileComponent } from './share-file/share-file.component';
+import { NotificationViewComponent } from './notification-view/notification-view.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { ModalModule } from './_modal';
     FileComponent,
     FileViewComponent,
     FileUpdateComponent,
-    NotificationComponent
+    NotificationComponent,
+    ShareFileComponent,
+    NotificationViewComponent
   ],
   imports: [
     BrowserModule,

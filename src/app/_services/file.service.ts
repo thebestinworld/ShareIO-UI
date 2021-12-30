@@ -18,7 +18,7 @@ export class FileService {
   private fileToUpdate = new BehaviorSubject<any>([]);
   currentDetail = this.fileToUpdate.asObservable();
   
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient) { }
 
   getFiles(userId: number): Observable<any> {
     return this.http.post(`${FILE_API}`, { userId });
@@ -45,6 +45,10 @@ export class FileService {
 
   deleteFile(fileId: any): Observable<any> {
     return this.http.delete(FILE_API + '/' + fileId);
+  }
+
+  shareFile(fileId: any, userToShareId: any): Observable<any> {
+    return this.http.post(FILE_API + '/' + fileId + '/share', {userToShareId});
   }
 
   setFile(fileToUpdate?: any) {

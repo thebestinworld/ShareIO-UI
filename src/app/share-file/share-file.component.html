@@ -1,0 +1,12 @@
+
+<form [formGroup]="shareUserForm"  (ngSubmit)="onSubmit()">
+    <label>Choose user</label>
+    <select required class="form-control" formControlName="userId">
+    <option *ngFor="let user of users" [value]="user.id">  {{user.username}}</option>
+    </select>
+    <p></p>
+    <div class="form-group">
+        <button class="btn btn-primary btn-block" type="submit">Sumbit</button>
+      </div>
+</form>
+

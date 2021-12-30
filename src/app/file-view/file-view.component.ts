@@ -33,6 +33,12 @@ export class FileViewComponent implements OnInit {
     this.route.navigate(['file/'+  id +'/update'])
   }
 
+  shareFile(){
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.fileService.setFile(this.file);
+    this.route.navigate(['file/'+  id +'/share'])
+  }
+
   deleteFile(){
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.fileService.deleteFile(id).subscribe( {

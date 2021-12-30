@@ -1,7 +1,8 @@
 <jw-modal id="custom-modal-1">
     <h1>Notification Recieved!</h1>
     <p> {{ message }} </p>
-    <button   (click)="closeModal('custom-modal-1');">Close</button>
+    <a href="/file/{{fileId}}" class="nav-link">Check the changes!</a>
+    <button (click)="closeModal('custom-modal-1');">Close</button>
 </jw-modal>
 
 
