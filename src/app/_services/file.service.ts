@@ -1,8 +1,10 @@
 import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { FileView, FileViewList } from '../_interface/file-view';
 import { FileDTO } from '../_models/file';
 import { TokenStorageService } from './token-storage.service';
+import { SortDirection } from "@angular/material/sort";
 
 const FILE_API = 'http://localhost:8080/api/file';
 
@@ -17,11 +19,21 @@ export class FileService {
 
   private fileToUpdate = new BehaviorSubject<any>([]);
   currentDetail = this.fileToUpdate.asObservable();
-  
+
   constructor(private http: HttpClient) { }
 
-  getFiles(userId: number): Observable<any> {
-    return this.http.post(`${FILE_API}`, { userId });
+  getFilesSimple(userId: number): Observable<FileView> {
+    return this.http.post<FileView>(`${FILE_API}`, { userId });
+  }
+
+  getFiles(userId: number, sort: string, order: SortDirection, page: number,
+    name: string, originalName: string, description: string,
+    fileType: string, contentType: string, extension: string, version: number,
+    uploadDate: Date, updateDate: Date, uploaderName: string): Observable<FileViewList> {
+    return this.http.post<FileViewList>(`${FILE_API}`, {
+      userId, name, originalName, description,
+      fileType, contentType, extension, version, uploadDate, updateDate, uploaderName
+    });
   }
 
   getFile(fileId: any): Observable<any> {
@@ -48,7 +60,7 @@ export class FileService {
   }
 
   shareFile(fileId: any, userToShareId: any): Observable<any> {
-    return this.http.post(FILE_API + '/' + fileId + '/share', {userToShareId});
+    return this.http.post(FILE_API + '/' + fileId + '/share', { userToShareId });
   }
 
   setFile(fileToUpdate?: any) {

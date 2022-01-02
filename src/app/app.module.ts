@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule , ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -23,6 +23,16 @@ import { NotificationComponent } from './notification/notification.component';
 import { ModalModule } from './_modal';
 import { ShareFileComponent } from './share-file/share-file.component';
 import { NotificationViewComponent } from './notification-view/notification-view.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -49,7 +59,19 @@ import { NotificationViewComponent } from './notification-view/notification-view
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    ModalModule
+    ModalModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatSortModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatDatepickerModule
+
+
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

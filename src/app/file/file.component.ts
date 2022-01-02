@@ -1,23 +1,183 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { FileService } from '../_services/file.service';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatCardModule } from '@angular/material/card';
+import { FileView, FileViewList } from '../_interface/file-view';
+import { MatSort } from '@angular/material/sort';
+import { of, merge } from 'rxjs';
+import { startWith, switchMap, catchError, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-file',
   templateUrl: './file.component.html',
   styleUrls: ['./file.component.css']
 })
-export class FileComponent implements OnInit {
+export class FileComponent implements OnInit, AfterViewInit {
 
-
-  files?: Observable<any>;
   currentUser: any;
+  displayedColumns: string[] = ['name', 'originalName', 'description', 'fileType',
+    'extension', 'contentType', 'version', 'updateDate', 'uploadDate', 'uploaderName'];
+  data: FileView[] = [];
+  @ViewChild(MatSort) sort!: MatSort;
+
+  nameFilter = new FormControl('');
+  originalFileNameFilter = new FormControl('');
+  descriptionFilter = new FormControl('');
+  fileTypeFilter = new FormControl('');
+  contentTypeFilter = new FormControl('');
+  extensionFilter = new FormControl('');
+  versionFilter = new FormControl('');
+  uploadDateFilter = new FormControl(new Date());
+  updateDateFilter = new FormControl(new Date());
+  uploaderNameFilter = new FormControl('');
+
+  filterValues: any = {
+    name: '',
+    originalFileName: '',
+    description: '',
+    fileType: '',
+    contentType: '',
+    extension: '',
+    version: '',
+    uploadDate: '',
+    updateDate: '',
+    uploaderName: ''
+
+  }
 
   constructor(private fileService: FileService, private token: TokenStorageService) { }
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
-    this.files = this.fileService.getFiles(this.currentUser.id);
+  }
+
+  ngAfterViewInit() {
+    // If the user changes the sort order, reset back to the first page.
+    this.sort.sortChange.subscribe(() => 0);
+    this.nameFilter.valueChanges
+      .subscribe(
+        name => {
+          this.filterValues.name = name;
+        }
+      )
+    this.originalFileNameFilter.valueChanges
+      .subscribe(
+        originalFileName => {
+          this.filterValues.originalFileName = originalFileName;
+        }
+      )
+    this.descriptionFilter.valueChanges
+      .subscribe(
+        description => {
+          this.filterValues.description = description;
+        }
+      )
+    this.fileTypeFilter.valueChanges
+      .subscribe(
+        fileType => {
+          this.filterValues.fileType = fileType;
+        }
+      )
+    this.contentTypeFilter.valueChanges
+      .subscribe(
+        contentType => {
+          this.filterValues.contentType = contentType;
+        }
+      )
+    this.extensionFilter.valueChanges
+      .subscribe(
+        extension => {
+          this.filterValues.extension = extension;
+        }
+      )
+    this.versionFilter.valueChanges
+      .subscribe(
+        version => {
+          this.filterValues.version = version;
+        }
+      )
+    this.uploadDateFilter.valueChanges
+      .subscribe(
+        uploadDate => {
+          const datepipe: DatePipe = new DatePipe('en-US')
+          let formattedDate = datepipe.transform(uploadDate, 'YYYY-MM-dd')
+          this.filterValues.uploadDate = formattedDate;
+        }
+      )
+    this.updateDateFilter.valueChanges
+      .subscribe(
+        updateDate => {
+          const datepipe: DatePipe = new DatePipe('en-US')
+          let formattedDate = datepipe.transform(updateDate, 'YYYY-MM-dd')
+          this.filterValues.updateDate = formattedDate;
+
+        }
+      )
+    this.uploaderNameFilter.valueChanges
+      .subscribe(
+        uploaderName => {
+          this.filterValues.uploaderName = uploaderName;
+        }
+      )
+    this.uploaderNameFilter.valueChanges
+      .subscribe(
+        uploaderName => {
+          this.filterValues.uploaderName = uploaderName;
+        }
+      )
+    merge(this.sort.sortChange,
+      this.nameFilter.valueChanges,
+      this.originalFileNameFilter.valueChanges,
+      this.descriptionFilter.valueChanges,
+      this.fileTypeFilter.valueChanges,
+      this.contentTypeFilter.valueChanges,
+      this.extensionFilter.valueChanges,
+      this.versionFilter.valueChanges,
+      this.uploadDateFilter.valueChanges,
+      this.updateDateFilter.valueChanges,
+      this.uploaderNameFilter.valueChanges
+    ).pipe(
+      startWith({}),
+      switchMap(() => {
+        return this.fileService!.getFiles(this.currentUser.id, this.sort.active,
+          this.sort.direction, 0,
+          this.filterValues.name,
+          this.filterValues.originalFileName,
+          this.filterValues.description,
+          this.filterValues.fileType,
+          this.filterValues.contentType,
+          this.filterValues.extension,
+          this.filterValues.version,
+          this.filterValues.uploadDate,
+          this.filterValues.updateDate,
+          this.filterValues.uploaderName)
+          .pipe(catchError(() => of(null)));
+      }),
+      map(data => {
+        if (data === null) {
+          return [];
+        }
+
+        return data.items;
+      })
+    ).subscribe(data => this.data = data);
+  }
+
+  clearFilter() {
+    this.nameFilter.setValue('');
+    this.originalFileNameFilter.setValue('');
+    this.descriptionFilter.setValue('');
+    this.fileTypeFilter.setValue('');
+    this.contentTypeFilter.setValue('');
+    this.extensionFilter.setValue('');
+    this.versionFilter.setValue('');
+    this.uploadDateFilter.setValue('');
+    this.updateDateFilter.setValue('');
+    this.uploaderNameFilter.setValue('');
   }
 }
