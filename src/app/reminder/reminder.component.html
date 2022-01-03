@@ -1,0 +1,19 @@
+<div class="card mt-3">
+    <div class="card-header">List of Reminders</div>
+    <ul
+      class="list-group list-group-flush"
+      *ngFor="let reminder of reminders | async"
+    >
+      <li class="list-group-item">
+        <p >{{ reminder.message }}</p>
+        <button (click)="deleteReminder(reminder.id)" class="btn btn-danger">Delete File</button>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="text-center">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button  [routerLink]="['/reminder/create']" class="btn btn-success">Create Reminder</button>
+      </div>
+</div>

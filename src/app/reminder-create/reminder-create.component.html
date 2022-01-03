@@ -1,0 +1,29 @@
+
+ <form [formGroup]="fileUploadForm" (ngSubmit)="onSubmit()">
+    <div class="form-group" required=true>
+      <label for="message">
+        Message
+      </label>
+      <input required=true id="message" class="form-control" type="text" formControlName="message">
+    </div>
+    <mat-form-field>
+        <input required=true matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="dateControl"
+           [min]="minDate" [max]="maxDate" [disabled]="false">
+        <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" 
+           [stepHour]="1" [stepMinute]="1" [stepSecond]="1"
+           [touchUi]="false" [color]="color" [enableMeridian]="false" 
+           [disableMinute]="false" [hideTime]="false">
+        </ngx-mat-datetime-picker>
+     </mat-form-field>
+    <div class="form-group">
+      <button class="btn btn-primary btn-block" type="submit">Sumbit</button>
+    </div>
+  </form>
+
+  
+  <div class="text-center">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button  [routerLink]="['/reminder']" class="btn btn-success">Back</button>
+      </div>
+</div>

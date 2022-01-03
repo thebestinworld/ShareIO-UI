@@ -33,6 +33,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ReminderCreateComponent } from './reminder-create/reminder-create.component';
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { ReminderComponent } from './reminder/reminder.component';
+
 
 
 @NgModule({
@@ -51,7 +55,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     FileUpdateComponent,
     NotificationComponent,
     ShareFileComponent,
-    NotificationViewComponent
+    NotificationViewComponent,
+    ReminderCreateComponent,
+    ReminderComponent
   ],
   imports: [
     BrowserModule,
@@ -69,9 +75,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatInputModule,
     MatNativeDateModule,
-    MatDatepickerModule
-
-
+    MatDatepickerModule,   
+    NgxMatTimepickerModule,
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

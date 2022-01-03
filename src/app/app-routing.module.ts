@@ -14,6 +14,8 @@ import { FileViewComponent } from './file-view/file-view.component';
 import { FileUpdateComponent } from './file-update/file-update.component';
 import { ShareFileComponent } from './share-file/share-file.component';
 import { NotificationViewComponent } from './notification-view/notification-view.component';
+import { ReminderCreateComponent } from './reminder-create/reminder-create.component';
+import { ReminderComponent } from './reminder/reminder.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -29,6 +31,8 @@ const routes: Routes = [
   { path: 'file/:id/update', component: FileUpdateComponent },
   { path: 'file/:id/share', component: ShareFileComponent },
   { path: 'notification', component: NotificationViewComponent },
+  { path: 'reminder/create', component: ReminderCreateComponent },
+  { path: 'reminder', component: ReminderComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
