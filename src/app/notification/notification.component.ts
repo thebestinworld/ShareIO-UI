@@ -27,6 +27,9 @@ export class NotificationComponent implements OnInit {
       _this.stompClient.subscribe('/topic/notification', function (notification: { body: string; }) {
       _this.showNotification(JSON.parse(notification.body));
       });
+      _this.stompClient.subscribe('/topic/reminder', function (notification: { body: string; }) {
+        _this.showReminder(JSON.parse(notification.body));
+        });
     });
   }
 
@@ -53,6 +56,16 @@ export class NotificationComponent implements OnInit {
       this.message = notifcation.message;
       this.fileId = notifcation.fileId
       this.modalService.open('custom-modal-1');
+    }
+  }
+
+  showReminder(reminder: any) {
+    var user = this.tokenStorageSerivce.getUser();
+    /*Check if the notification is for the current user*/
+    if (user.id === reminder.userId) {
+      console.log(reminder)
+      this.message = reminder.message;
+      this.modalService.open('custom-modal-2');
     }
   }
 
