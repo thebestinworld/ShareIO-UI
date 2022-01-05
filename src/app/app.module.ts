@@ -36,6 +36,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ReminderCreateComponent } from './reminder-create/reminder-create.component';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { ReminderComponent } from './reminder/reminder.component';
+import { MatIconModule } from '@angular/material/icon'
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
@@ -78,7 +81,10 @@ import { ReminderComponent } from './reminder/reminder.component';
     MatDatepickerModule,   
     NgxMatTimepickerModule,
     NgxMatDatetimePickerModule,
-    NgxMatNativeDateModule
+    NgxMatNativeDateModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatPaginatorModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

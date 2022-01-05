@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FileDTO } from '../_models/file';
 import { FileService } from '../_services/file.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-file-update',
@@ -15,7 +16,8 @@ export class FileUpdateComponent implements OnInit {
   fileUploadForm: any;
   selectedFile: any;
 
-  constructor(private fileService: FileService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private fileService: FileService, private formBuilder: FormBuilder, private router: Router, 
+    private location: Location) { }
 
   ngOnInit(): void {
     this.fileService.currentDetail.subscribe({
@@ -36,7 +38,7 @@ export class FileUpdateComponent implements OnInit {
       next: (data) => {
         console.log(data)
         if (this.selectedFile != null) {
-          this.fileService.updateFileData(this.selectedFile, this.fileToUpdate?.id).subscribe( { 
+          this.fileService.updateFileData(this.selectedFile, this.fileToUpdate?.id).subscribe({
             next: (data) => {
               setTimeout(() => {
                 this.router.navigate(['file/' + this.fileToUpdate?.id])
@@ -44,11 +46,11 @@ export class FileUpdateComponent implements OnInit {
             },
             error: (e) => {
               console.log(e);
-            }                  
+            }
           });
         } else {
           this.router.navigate(['file/' + this.fileToUpdate?.id])
-        }         
+        }
       },
       error: (e) => {
         console.error(e)
@@ -59,5 +61,9 @@ export class FileUpdateComponent implements OnInit {
 
   fileUpload(event: any) {
     this.selectedFile = event.target.files.item(0);
+  }
+
+  backClicked() {
+    this.location.back();
   }
 }

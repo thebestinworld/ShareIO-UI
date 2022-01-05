@@ -26,13 +26,14 @@ export class FileService {
     return this.http.post<FileView>(`${FILE_API}`, { userId });
   }
 
-  getFiles(userId: number, sort: string, order: SortDirection, page: number,
-    name: string, originalName: string, description: string,
+  getFiles(userId: number, sort: string, order: SortDirection, page: number, size: number,
+    id: number,name: string, originalName: string, description: string,
     fileType: string, contentType: string, extension: string, version: number,
     uploadDate: Date, updateDate: Date, uploaderName: string): Observable<FileViewList> {
+     
     return this.http.post<FileViewList>(`${FILE_API}`, {
-      userId, name, originalName, description,
-      fileType, contentType, extension, version, uploadDate, updateDate, uploaderName
+      userId, id, name, originalName, description,
+      fileType, contentType, extension, version, uploadDate, updateDate, uploaderName, sort, order, page, size
     });
   }
 

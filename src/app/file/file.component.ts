@@ -11,6 +11,7 @@ import { of, merge } from 'rxjs';
 import { startWith, switchMap, catchError, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-file',
@@ -20,11 +21,14 @@ import { DatePipe } from '@angular/common';
 export class FileComponent implements OnInit, AfterViewInit {
 
   currentUser: any;
-  displayedColumns: string[] = ['name', 'originalName', 'description', 'fileType',
-    'extension', 'contentType', 'version', 'updateDate', 'uploadDate', 'uploaderName'];
+  displayedColumns: string[] = ['id', 'name', 'originalName', 'description', 'fileType',
+    'extension', 'contentType', 'version', 'uploadDate', 'updateDate', 'uploader'];
   data: FileView[] = [];
   @ViewChild(MatSort) sort!: MatSort;
+  resultsLength = 0;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;;
 
+  idFilter = new FormControl('');
   nameFilter = new FormControl('');
   originalFileNameFilter = new FormControl('');
   descriptionFilter = new FormControl('');
@@ -37,6 +41,7 @@ export class FileComponent implements OnInit, AfterViewInit {
   uploaderNameFilter = new FormControl('');
 
   filterValues: any = {
+    id: '',
     name: '',
     originalFileName: '',
     description: '',
@@ -58,7 +63,13 @@ export class FileComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     // If the user changes the sort order, reset back to the first page.
-    this.sort.sortChange.subscribe(() => 0);
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.idFilter.valueChanges
+      .subscribe(
+        id => {
+          this.filterValues.id = id;
+        }
+      )
     this.nameFilter.valueChanges
       .subscribe(
         name => {
@@ -131,6 +142,7 @@ export class FileComponent implements OnInit, AfterViewInit {
         }
       )
     merge(this.sort.sortChange,
+      this.idFilter.valueChanges,
       this.nameFilter.valueChanges,
       this.originalFileNameFilter.valueChanges,
       this.descriptionFilter.valueChanges,
@@ -140,12 +152,14 @@ export class FileComponent implements OnInit, AfterViewInit {
       this.versionFilter.valueChanges,
       this.uploadDateFilter.valueChanges,
       this.updateDateFilter.valueChanges,
-      this.uploaderNameFilter.valueChanges
+      this.uploaderNameFilter.valueChanges,
+      this.paginator.page
     ).pipe(
       startWith({}),
       switchMap(() => {
         return this.fileService!.getFiles(this.currentUser.id, this.sort.active,
-          this.sort.direction, 0,
+          this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize,
+          this.filterValues.id,
           this.filterValues.name,
           this.filterValues.originalFileName,
           this.filterValues.description,
@@ -162,7 +176,7 @@ export class FileComponent implements OnInit, AfterViewInit {
         if (data === null) {
           return [];
         }
-
+        this.resultsLength = data.totalCount;
         return data.items;
       })
     ).subscribe(data => this.data = data);
@@ -181,3 +195,4 @@ export class FileComponent implements OnInit, AfterViewInit {
     this.uploaderNameFilter.setValue('');
   }
 }
+

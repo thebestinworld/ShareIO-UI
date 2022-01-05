@@ -1,10 +1,15 @@
-export class FileDTO {
-    public id: string;
-    public name: string;
-    public encodedData: string;
-    constructor(id: string, name: string, encodedData: string) {
-        this.id = id;
-        this.name = name;
-        this.encodedData = encodedData;
-    } 
+import { Type } from "@angular/core";
+
+export interface FileDTO {
+    id: string;
+    name: string;
+    encodedData: string;
+    fileType: string;
+    extension: string;
+    originalName: string;
+    description: string
+    version: number;
+    uploadDate: string;
+    updateDate: string;
+    uploaderName: string;
 } 
