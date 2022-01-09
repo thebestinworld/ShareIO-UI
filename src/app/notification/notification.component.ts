@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Stomp} from '@stomp/stompjs';
+import { Stomp } from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import { ModalService } from '../_modal';
 import { TokenStorageService } from '../_services/token-storage.service';
@@ -11,8 +11,8 @@ import { TokenStorageService } from '../_services/token-storage.service';
 })
 export class NotificationComponent implements OnInit {
 
-  message! : string;
-  fileId! : string;
+  message!: string;
+  fileId!: string;
   disabled = true;
   private stompClient: any;
   constructor(private modalService: ModalService, private tokenStorageSerivce: TokenStorageService) { }
@@ -25,18 +25,18 @@ export class NotificationComponent implements OnInit {
       _this.setConnected(true);
       console.log('Connected: ' + frame);
       _this.stompClient.subscribe('/topic/notification', function (notification: { body: string; }) {
-      _this.showNotification(JSON.parse(notification.body));
+        _this.showNotification(JSON.parse(notification.body));
       });
-      _this.stompClient.subscribe('/topic/reminder', function (notification: { body: string; }) {
-        _this.showReminder(JSON.parse(notification.body));
-        });
+      _this.stompClient.subscribe('/topic/reminder', function (reminder: { body: string; }) {
+        _this.showReminder(JSON.parse(reminder.body));
+      });
     });
   }
 
   setConnected(connected: boolean) {
     this.disabled = !connected;
     if (connected) {
-        this.message = '';
+      this.message = '';
     }
   }
 
@@ -52,7 +52,6 @@ export class NotificationComponent implements OnInit {
     var user = this.tokenStorageSerivce.getUser();
     /*Check if the notification is for the current user*/
     if (user.id === notifcation.userId) {
-      console.log(notifcation)
       this.message = notifcation.message;
       this.fileId = notifcation.fileId
       this.modalService.open('custom-modal-1');
@@ -63,7 +62,6 @@ export class NotificationComponent implements OnInit {
     var user = this.tokenStorageSerivce.getUser();
     /*Check if the notification is for the current user*/
     if (user.id === reminder.userId) {
-      console.log(reminder)
       this.message = reminder.message;
       this.modalService.open('custom-modal-2');
     }

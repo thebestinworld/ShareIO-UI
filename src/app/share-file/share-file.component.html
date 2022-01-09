@@ -1,17 +1,13 @@
 <form [formGroup]="shareUserForm" (ngSubmit)="onSubmit()">
-  <label>Choose user</label>
+  <label>Choose User</label>
   <select required class="form-control" formControlName="userId">
     <option *ngFor="let user of users" [value]="user.id"> {{user.username}}</option>
   </select>
   <p></p>
   <div class="text-center">
     <div class="btn-group" role="group" aria-label="Basic example">
-      <button class="btn btn-primary" type="submit">Sumbit</button>
-    </div>
-  </div>
-  <div class="text-center">
-    <div class="btn-group" role="group" aria-label="Basic example">
-      <button (click)="backClicked()" class="btn btn-success">Back</button>
+      <button class="btn btn-primary  mr-3" type="submit">Sumbit</button>
+      <button type="button" (click)="backClicked()" class="btn btn-success  mr-3">Back</button>
     </div>
   </div>
 </form>

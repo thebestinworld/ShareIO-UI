@@ -14,8 +14,11 @@
         </label>
         <input id="description" class="form-control" type="text" formControlName="description">
       </div>
-      <div class="form-group">
-        <button class="btn btn-primary btn-block" type="submit">Sumbit</button>
+      <div class="text-center">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button class="btn btn-primary  mr-3" type="submit">Sumbit</button>
+          <button type="button" (click)="backClicked()" class="btn btn-success  mr-3">Back</button>
+        </div>
       </div>
     </form>
   </div>

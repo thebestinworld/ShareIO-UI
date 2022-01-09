@@ -74,9 +74,17 @@
 </div>
 <div class="text-center">
     <div class="btn-group" role="group" aria-label="Basic example">
-        <button (click)="updateFile()" class="btn btn-success mr-3">Update File</button>
-        <button (click)="shareFile()" class="btn btn-primary mr-3">Share File</button>
-        <button type=button class="btn btn-danger mr-3"  (click)="deleteFile('')">Delete File</button>
+        <button (click)="updateFile()" class="btn btn-success mr-3">Update File <span class="material-icons">
+                update
+            </span></button>
+        <button (click)="shareFile()" *ngIf="showShare" class="btn btn-primary mr-3">Share File <span
+                class="material-icons">
+                share
+            </span></button>
+        <button type=button class="btn btn-danger mr-3" *ngIf="showDelete" (click)="deleteFile('')">Delete File <span
+                class="material-icons">
+                delete
+            </span></button>
         <button (click)="backClicked()" class="btn btn-success mr-3">Back</button>
     </div>
 </div>

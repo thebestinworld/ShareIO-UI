@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FileUploadService } from '../_services/file-upload.service';
 import { EventBusService } from '../_shared/event-bus.service';
 import { EventData } from '../_shared/event.class';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-file-upload',
@@ -18,7 +19,7 @@ export class FileUploadComponent implements OnInit {
   });
 
   constructor(private formBuilder: FormBuilder, private fileUploadService: FileUploadService,
-    private eventBusService: EventBusService, private router: Router) { }
+    private eventBusService: EventBusService, private router: Router, private location: Location) { }
 
   ngOnInit(): void {
   }
@@ -37,5 +38,8 @@ export class FileUploadComponent implements OnInit {
     });
     this.fileUploadForm.reset();
     this.router.navigate(['file/upload/data'])
+  }
+  backClicked() {
+    this.location.back();
   }
 }

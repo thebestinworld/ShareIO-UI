@@ -1,19 +1,113 @@
-<div class="card mt-3">
-    <div class="card-header">List of Reminders</div>
-    <ul
-      class="list-group list-group-flush"
-      *ngFor="let reminder of reminders | async"
-    >
-      <li class="list-group-item">
-        <p >{{ reminder.message }}</p>
-        <button (click)="deleteReminder(reminder.id)" class="btn btn-danger">Delete File</button>
-      </li>
+<p></p>
+<div class="text-center">
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button [routerLink]="['/reminder/create']" class="btn btn-success">Create Reminder</button>
+  </div>
+</div>
+<p></p>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Filter <span class="material-icons">
+        filter_alt
+      </span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
 
-    </ul>
+  <div class="vertical-form-field">
+    <div class="label">Id</div>
+    <div>
+      <mat-form-field appearance="fill" class="no-label-field">
+        <mat-label>Id</mat-label>
+        <input type="number" [formControl]="idFilter" matInput placeholder="Id">
+      </mat-form-field>
+    </div>
+
   </div>
 
-  <div class="text-center">
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <button  [routerLink]="['/reminder/create']" class="btn btn-success">Create Reminder</button>
+
+  <div class="vertical-form-field">
+    <div class="label">Message</div>
+    <div>
+      <mat-form-field appearance="fill" class="no-label-field">
+        <mat-label>Message</mat-label>
+        <input [formControl]="messageFilter" matInput placeholder="Message">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="vertical-form-field">
+    <div class="label">Time</div>
+    <div>
+      <mat-form-field>
+        <mat-label>Time</mat-label>
+        <input required=true matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
+          [formControl]="timeFilter" [min]="minDate" [max]="maxDate" [disabled]="false">
+        <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" [stepHour]="1" [stepMinute]="1"
+          [stepSecond]="1" [touchUi]="false" [color]="color" [enableMeridian]="false" [disableMinute]="false"
+          [hideTime]="false">
+        </ngx-mat-datetime-picker>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div class="vertical-form-field">
+    <div class="label">Past Due</div>
+    <div>
+      <mat-form-field appearance="fill" class="no-label-field">
+        <mat-label>Past Due</mat-label>
+        <input [formControl]="pastDueFilter" matInput placeholder="Past Due">
+      </mat-form-field>
+    </div>
+  </div>
+  <div>
+    <button class="btn btn-primary" (click)="clearFilter()">
+      Clear Filter<i class="material-icons">clear</i>
+    </button>
+
+  </div>
+</mat-expansion-panel>
+<mat-card class="example-card">
+  <mat-card-title>Reminders</mat-card-title>
+  <mat-card-content>
+    <div class="example-container mat-elevation-z8">
+      <div class="example-table-container">
+        <table mat-table [dataSource]="data" class="example-table" matSort matSortActive="id" matSortDisableClear
+          matSortDirection="desc">
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Id</th>
+            <td mat-cell routerLink="/file/{{row.id}}" *matCellDef="let row">{{row.id}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="message">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Message</th>
+            <td mat-cell *matCellDef="let row">{{row.message}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="time">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Time</th>
+            <td mat-cell *matCellDef="let row">{{row.time}}</td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="pastDue">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Past Due</th>
+            <td mat-cell *matCellDef="let row">{{row.pastDue}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="deleteAction">
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
+            <td mat-cell *matCellDef="let row"><i class="material-icons" (click)="deleteReminder(row.id)">delete</i>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
       </div>
-</div>
+      <mat-paginator [length]="resultsLength" [pageSize]="5" aria-label="Select page of Reminder search results">
+      </mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>

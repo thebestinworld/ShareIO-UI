@@ -1,8 +1,118 @@
 <div class="card mt-3">
-    <div class="card-header">Notifications</div>
-    <ul class="list-group list-group-flush" *ngFor="let notification of notifications | async">
-      <li class="list-group-item">
-        <p>{{ notification.message }}</p>
-      </li>
-    </ul>
+  <div class="card-header">Notifications</div>
+  <ul class="list-group list-group-flush" *ngFor="let notification of notifications | async">
+    <li class="list-group-item">
+
+      <p>{{ notification.message }} at {{ notification.receivedDate }}</p>
+      <p></p>
+    </li>
+  </ul>
+</div>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Filter <span class="material-icons">
+        filter_alt
+      </span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="vertical-form-field">
+    <div class="label">Id</div>
+    <div>
+      <mat-form-field appearance="fill" class="no-label-field">
+        <mat-label>Id</mat-label>
+        <input type="number" [formControl]="idFilter" matInput placeholder="Id">
+      </mat-form-field>
+    </div>
+
   </div>
+
+
+  <div class="vertical-form-field">
+    <div class="label">Message</div>
+    <div>
+      <mat-form-field appearance="fill" class="no-label-field">
+        <mat-label>Message</mat-label>
+        <input [formControl]="messageFilter" matInput placeholder="Message">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="vertical-form-field">
+    <div class="label">Received Date</div>
+    <div>
+      <mat-form-field>
+        <mat-label>Received Date</mat-label>
+        <input required=true matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
+          [formControl]="receivedDateFilter" [min]="minDate" [max]="maxDate" [disabled]="false">
+        <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" [stepHour]="1" [stepMinute]="1"
+          [stepSecond]="1" [touchUi]="false" [color]="color" [enableMeridian]="false" [disableMinute]="false"
+          [hideTime]="false">
+        </ngx-mat-datetime-picker>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div class="vertical-form-field">
+    <div class="label">Is Read</div>
+    <div>
+      <mat-form-field appearance="fill" class="no-label-field">
+        <mat-label>Is Read</mat-label>
+        <input [formControl]="isReadFilter" matInput placeholder="Is Read">
+      </mat-form-field>
+    </div>
+  </div>
+  <div>
+    <button class="btn btn-primary" (click)="clearFilter()">
+      Clear Filter<i class="material-icons">clear</i>
+    </button>
+
+  </div>
+</mat-expansion-panel>
+<mat-card class="example-card">
+  <mat-card-title>Notifications</mat-card-title>
+  <mat-card-content>
+    <div class="example-container mat-elevation-z8">
+      <div class="example-table-container">
+        <table mat-table [dataSource]="data" class="example-table" matSort matSortActive="id" matSortDisableClear
+          matSortDirection="desc">
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let row">{{row.id}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="message">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Message</th>
+            <td mat-cell *matCellDef="let row">{{row.message}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="receivedDate">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Received Date</th>
+            <td mat-cell *matCellDef="let row">{{row.receivedDate}}</td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="isRead">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Is Read</th>
+            <td mat-cell *matCellDef="let row">{{row.isRead}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="markAsRead">
+            <th mat-header-cell *matHeaderCellDef> Mark As Read </th>
+            <td mat-cell *matCellDef="let row">
+              <i class="material-icons" (click)="markAsRead(row.id)">check_circle</i>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <mat-paginator [length]="resultsLength" [pageSize]="5" aria-label="Select page of Reminder search results">
+      </mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>

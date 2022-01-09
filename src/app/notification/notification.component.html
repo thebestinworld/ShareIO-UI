@@ -1,14 +1,11 @@
 <jw-modal id="custom-modal-1">
-    <h1>Notification Recieved!</h1>
-    <p> {{ message }} </p>
-    <a href="/file/{{fileId}}" class="nav-link">Check the changes!</a>
-    <button (click)="closeModal('custom-modal-1');">Close</button>
+    <h4> {{ message }} </h4>
+    <a routerLink="/file/{{fileId}}"><button class="btn btn-success mr-3" (click)="closeModal('custom-modal-1');">View
+            File</button></a>
+    <button class="btn btn-primary mr-3" (click)="closeModal('custom-modal-1');">Close</button>
 </jw-modal>
 
 <jw-modal id="custom-modal-2">
-    <h1>Reminder Recieved!</h1>
-    <p> {{ message }} </p>
-    <button (click)="closeModal('custom-modal-2');">Close</button>
+    <h4> {{ message }} </h4>
+    <button class="btn btn-primary mr-3" (click)="closeModal('custom-modal-2');">Close</button>
 </jw-modal>
-
-

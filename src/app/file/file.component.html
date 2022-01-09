@@ -1,7 +1,9 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     <mat-panel-title>
-      Filter
+      Filter <span class="material-icons">
+        filter_alt
+      </span>
     </mat-panel-title>
   </mat-expansion-panel-header>
 
@@ -120,10 +122,10 @@
   <mat-card-content>
     <div class="example-container mat-elevation-z8">
       <div class="example-table-container">
-        <table mat-table [dataSource]="data" class="example-table" matSort matSortActive="created" matSortDisableClear
+        <table mat-table [dataSource]="data" class="example-table" matSort matSortActive="id" matSortDisableClear
           matSortDirection="desc">
-           <!-- Name Column -->
-           <ng-container matColumnDef="id">
+          <!-- Name Column -->
+          <ng-container matColumnDef="id">
             <th mat-header-cell mat-sort-header *matHeaderCellDef>Id</th>
             <td mat-cell routerLink="/file/{{row.id}}" *matCellDef="let row">{{row.id}}</td>
           </ng-container>

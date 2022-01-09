@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { ReminderService } from '../_services/reminder.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-reminder-create',
@@ -24,7 +25,8 @@ export class ReminderCreateComponent implements OnInit, AfterViewInit {
     time: this.dateControl
   });
   
-  constructor(private formBuilder: FormBuilder, private reminderService: ReminderService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private reminderService: ReminderService, private router: Router,  
+    private location: Location) { }
 
   ngOnInit(): void {
   }
@@ -45,5 +47,7 @@ export class ReminderCreateComponent implements OnInit, AfterViewInit {
     })
   }
 
-
+  backClicked() {
+    this.location.back();
+  }
 }

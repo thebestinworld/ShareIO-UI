@@ -1,46 +1,59 @@
 <div id="app">
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Share IO</a>
+    <a href="/" class="navbar-brand">Share IO</a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
-        <a href="/home" class="nav-link" routerLink="home">Home </a>
-      </li>
-      <li class="nav-item" *ngIf="showAdminBoard">
-        <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
-      </li>
-      <li class="nav-item">
-        <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
+        <a href="/file/upload" class="nav-link" *ngIf="isLoggedIn" routerLink="file/upload">Upload File <span
+            class="material-icons">
+            upload
+          </span></a>
       </li>
       <li class="nav-item">
-        <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="file/upload">File Upload</a>
+        <a href="/file" class="nav-link" *ngIf="isLoggedIn" routerLink="file">Files <span class="material-icons">
+            folder
+          </span>
+        </a>
       </li>
       <li class="nav-item">
-        <a href="/file" class="nav-link" *ngIf="isLoggedIn" routerLink="file">My Files</a>
+        <a href="/notification" class="nav-link" *ngIf="isLoggedIn" routerLink="notification">Notifications <span
+            class="material-icons">
+            notifications
+          </span>
+        </a>
       </li>
       <li class="nav-item">
-        <a href="/notification" class="nav-link" *ngIf="isLoggedIn" routerLink="notification">My Notifications</a>
-      </li>
-      <li class="nav-item">
-        <a href="/reminder" class="nav-link" *ngIf="isLoggedIn" routerLink="reminder">My Reminders</a>
+        <a href="/reminder" class="nav-link" *ngIf="isLoggedIn" routerLink="reminder">Reminders <span
+            class="material-icons">
+            event
+          </span></a>
       </li>
       <app-notification></app-notification>
     </ul>
 
     <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
       <li class="nav-item">
-        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+        <a href="/register" class="nav-link" routerLink="register">Sign Up <span class="material-icons">
+            app_registration
+          </span></a>
       </li>
       <li class="nav-item">
-        <a href="/login" class="nav-link" routerLink="login">Login</a>
+        <a href="/login" class="nav-link" routerLink="login">Login <span class="material-icons">
+            login
+          </span></a>
       </li>
     </ul>
 
     <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
       <li class="nav-item">
-        <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+        <a href="/profile" class="nav-link" routerLink="profile">{{ username }} <span class="material-icons">
+            account_circle
+          </span>
+        </a>
       </li>
       <li class="nav-item">
-        <a href class="nav-link" (click)="logout()">LogOut</a>
+        <a href class="nav-link" (click)="logout()">Logout <span class="material-icons">
+            logout
+          </span></a>
       </li>
     </ul>
   </nav>

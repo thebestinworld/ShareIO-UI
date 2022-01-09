@@ -38,7 +38,6 @@ export class ShareFileComponent implements OnInit {
     const fileId = this.activatedRoute.snapshot.paramMap.get('id');
     this.fileService.shareFile(fileId, this.shareUserForm.value['userId']).subscribe({
       next: (data) => {
-        console.log(data)
         this.router.navigate(['file/' + fileId])
       },
       error: (e) => {

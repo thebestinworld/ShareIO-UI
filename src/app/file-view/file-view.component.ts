@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { FileDTO } from '../_models/file';
 import { FileService } from '../_services/file.service';
 import { Location } from '@angular/common';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-file-view',
@@ -19,11 +20,13 @@ export class FileViewComponent implements OnInit, AfterViewInit {
   audio: any;
   video: any;
   text: any;
+  showShare = false;
+  showDelete = false;
 
   @ViewChild('audioContainer', { static: true }) audioContainer: any;
   @ViewChild('videoContainer', { static: true }) videoContainer: any;
 
-  constructor(private fileService: FileService, private activatedRoute: ActivatedRoute,
+  constructor(private fileService: FileService, private tokenService: TokenStorageService, private activatedRoute: ActivatedRoute,
     private route: Router, private sanitizer: DomSanitizer, private location: Location) {
   }
 
@@ -36,6 +39,8 @@ export class FileViewComponent implements OnInit, AfterViewInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.fileService.getFile(id).subscribe(data => {
       this.file = data
+      this.showShare = this.file.uploaderId === this.tokenService.getUser().id
+      this.showDelete = this.file.uploaderId === this.tokenService.getUser().id;
       /*Handle image*/
       if (this.file.extension === 'png') {
         this.image = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${this.file.encodedData}`);

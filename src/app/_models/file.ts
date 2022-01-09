@@ -12,4 +12,5 @@ export interface FileDTO {
     uploadDate: string;
     updateDate: string;
     uploaderName: string;
+    uploaderId: number;
 } 
