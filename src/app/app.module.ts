@@ -39,6 +39,8 @@ import { ReminderComponent } from './reminder/reminder.component';
 import { MatIconModule } from '@angular/material/icon'
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { RevertComponent } from './revert/revert.component';
+import { EventLogComponent } from './event-log/event-log.component';
 
 
 
@@ -60,7 +62,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ShareFileComponent,
     NotificationViewComponent,
     ReminderCreateComponent,
-    ReminderComponent
+    ReminderComponent,
+    RevertComponent,
+    EventLogComponent
   ],
   imports: [
     BrowserModule,

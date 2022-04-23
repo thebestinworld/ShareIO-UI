@@ -81,6 +81,14 @@
                 class="material-icons">
                 share
             </span></button>
+            <button (click)="revertFile()" *ngIf="showShare" class="btn btn-primary mr-3">Revert File <span
+                class="material-icons">
+                history
+            </span></button>
+            <button (click)="viewLogs()" *ngIf="showShare" class="btn btn-primary mr-3">View Logs <span
+                class="material-icons">
+                description
+            </span></button>
         <button type=button class="btn btn-danger mr-3" *ngIf="showDelete" (click)="deleteFile('')">Delete File <span
                 class="material-icons">
                 delete

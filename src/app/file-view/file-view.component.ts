@@ -77,6 +77,16 @@ export class FileViewComponent implements OnInit, AfterViewInit {
     this.route.navigate(['file/' + id + '/share'])
   }
 
+  revertFile() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.route.navigate(['file/' + id + '/revert'])
+  }
+
+  viewLogs() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.route.navigate(['log/' + id])
+  }
+
   deleteFile(name: string) {
     if (confirm("Are you sure to delete this file " + name)) {
       const id = this.activatedRoute.snapshot.paramMap.get('id');
