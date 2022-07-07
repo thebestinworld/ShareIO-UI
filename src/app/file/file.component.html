@@ -1,3 +1,4 @@
+<br><br>
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     <mat-panel-title>
@@ -6,117 +7,127 @@
       </span>
     </mat-panel-title>
   </mat-expansion-panel-header>
+  <div class="wrapper">
+    <div class="vertical-form-field">
+      <div class="label">Id</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>Id</mat-label>
+          <input type="number" [formControl]="idFilter" matInput placeholder="Id">
+        </mat-form-field>
+      </div>
+    </div>
 
-  <div class="vertical-form-field">
-    <div class="label">Id</div>
-    <div>
-      <mat-form-field appearance="fill" class="no-label-field">
-        <mat-label>Id</mat-label>
-        <input type="number" [formControl]="idFilter" matInput placeholder="Id">
-      </mat-form-field>
+    <div class="vertical-form-field">
+      <div class="label">Name</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>File Name</mat-label>
+          <input [formControl]="nameFilter" matInput placeholder="Name">
+        </mat-form-field>
+      </div>
     </div>
-  </div>
 
-  <div class="vertical-form-field">
-    <div class="label">Name</div>
-    <div>
-      <mat-form-field appearance="fill" class="no-label-field">
-        <mat-label>File Name</mat-label>
-        <input [formControl]="nameFilter" matInput placeholder="Name">
-      </mat-form-field>
+    <div class="vertical-form-field">
+      <div class="label">Original Name</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>Original Name</mat-label>
+          <input [formControl]="originalFileNameFilter" matInput placeholder="Original Name">
+        </mat-form-field>
+      </div>
     </div>
-  </div>
-  <div class="vertical-form-field">
-    <div class="label">Original Name</div>
-    <div>
-      <mat-form-field appearance="fill" class="no-label-field">
-        <mat-label>Original Name</mat-label>
-        <input [formControl]="originalFileNameFilter" matInput placeholder="Original Name">
-      </mat-form-field>
+    <div class="vertical-form-field">
+      <div class="label">Description</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>Description</mat-label>
+          <input [formControl]="descriptionFilter" matInput placeholder="Description">
+        </mat-form-field>
+      </div>
     </div>
-  </div>
-  <div class="vertical-form-field">
-    <div class="label">Description</div>
-    <div>
-      <mat-form-field appearance="fill" class="no-label-field">
-        <mat-label>Description</mat-label>
-        <input [formControl]="descriptionFilter" matInput placeholder="Description">
-      </mat-form-field>
-    </div>
-  </div>
-  <div class="vertical-form-field">
-    <div class="label">File Type</div>
-    <div>
-      <mat-form-field appearance="fill" class="no-label-field">
-        <mat-select [formControl]="fileTypeFilter" placeholder="Select File Type">
-          <mat-option value="IMAGE">Image</mat-option>
-          <mat-option value="VIDEO">Video</mat-option>
-          <mat-option value="AUDIO">Audio</mat-option>
-          <mat-option value="TEXT">Text</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-  <div class="vertical-form-field">
-    <div class="label">Content Type</div>
-    <div>
-      <mat-form-field appearance="fill" class="no-label-field">
-        <mat-label>Content Type</mat-label>
-        <input [formControl]="contentTypeFilter" matInput placeholder="Content Type">
-      </mat-form-field>
-    </div>
-  </div>
-  <div class="vertical-form-field">
-    <div class="label">Extension</div>
-    <div>
-      <mat-form-field appearance="fill" class="no-label-field">
-        <mat-label>Extension</mat-label>
-        <input [formControl]="extensionFilter" matInput placeholder="Extension">
-      </mat-form-field>
-    </div>
-  </div>
-  <div class="vertical-form-field">
-    <div class="label">Version</div>
-    <div>
-      <mat-form-field appearance="fill" class="no-label-field">
-        <mat-label>Version</mat-label>
-        <input [formControl]="versionFilter" matInput placeholder="Version">
-      </mat-form-field>
-    </div>
-  </div>
 
-  <div class="vertical-form-field">
-    <mat-form-field appearance="fill">
-      <mat-label>Upload Date</mat-label>
-      <input matInput [matDatepicker]="uploadPicker" [formControl]="uploadDateFilter">
-      <mat-datepicker-toggle matSuffix [for]="uploadPicker"></mat-datepicker-toggle>
-      <mat-datepicker #uploadPicker></mat-datepicker>
-    </mat-form-field>
-  </div>
-
-  <div class="vertical-form-field">
-    <mat-form-field appearance="fill">
-      <mat-label>Update Date</mat-label>
-      <input matInput [matDatepicker]="updatePicker" [formControl]="updateDateFilter">
-      <mat-datepicker-toggle matSuffix [for]="updatePicker"></mat-datepicker-toggle>
-      <mat-datepicker #updatePicker></mat-datepicker>
-    </mat-form-field>
-  </div>
-
-  <div class="vertical-form-field">
-    <div class="label">Uploader Name</div>
-    <div>
-      <mat-form-field appearance="fill" class="no-label-field">
-        <mat-label>Uploader Name</mat-label>
-        <input [formControl]="uploaderNameFilter" matInput placeholder="Uploader Name">
-      </mat-form-field>
+    <div class="vertical-form-field">
+      <div class="label">Uploader Name</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>Uploader Name</mat-label>
+          <input [formControl]="uploaderNameFilter" matInput placeholder="Uploader Name">
+        </mat-form-field>
+      </div>
     </div>
-  </div>
-  <div>
-    <button mat-raised-button class="btn-primary" (click)="clearFilter()">Clear Filter</button>
+
+    <div class="vertical-form-field">
+      <div class="label">File Type</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-select [formControl]="fileTypeFilter" placeholder="Select File Type">
+            <mat-option value="IMAGE">Image</mat-option>
+            <mat-option value="VIDEO">Video</mat-option>
+            <mat-option value="AUDIO">Audio</mat-option>
+            <mat-option value="TEXT">Text</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="vertical-form-field">
+      <div class="label">Content Type</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>Content Type</mat-label>
+          <input [formControl]="contentTypeFilter" matInput placeholder="Content Type">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="vertical-form-field">
+      <div class="label">Extension</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>Extension</mat-label>
+          <input [formControl]="extensionFilter" matInput placeholder="Extension">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="vertical-form-field">
+      <div class="label">Version</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>Version</mat-label>
+          <input [formControl]="versionFilter" matInput placeholder="Version">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="vertical-form-field">
+      <div class="label">Upload Date</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>Upload Date</mat-label>
+          <input matInput [matDatepicker]="uploadPicker" [formControl]="uploadDateFilter">
+          <mat-datepicker-toggle matSuffix [for]="uploadPicker"></mat-datepicker-toggle>
+          <mat-datepicker #uploadPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="vertical-form-field">
+      <div class="label">Update Date</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>Update Date</mat-label>
+          <input matInput [matDatepicker]="updatePicker" [formControl]="updateDateFilter">
+          <mat-datepicker-toggle matSuffix [for]="updatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #updatePicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <button (click)="clearFilter()" class="mat-stroked-button">Clear Filter <span class="material-icons">
+        restart_alt
+      </span></button>
   </div>
 </mat-expansion-panel>
-
 <mat-card class="example-card">
   <mat-card-title>My Files</mat-card-title>
   <mat-card-content>

@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 export class ShareFileComponent implements OnInit {
 
   users: any;
+  fileName: any;
   shareUserForm = this.fb.group({
     userId: ''
   })
@@ -23,6 +24,7 @@ export class ShareFileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fileName = this.fileService.getCurrentFileName();
     this.getSelectedUser();
   }
 

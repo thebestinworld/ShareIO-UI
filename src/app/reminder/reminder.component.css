@@ -45,6 +45,18 @@
   .example-card {
     max-width: 1200px;
   }
-  .material-icons {
-    vertical-align: middle;
-  }
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr 4fr;
+  grid-gap: 20px;
+}
+
+.material-icons {
+  vertical-align: middle;
+}
+
+.mat-stroked-button {
+  margin-top: 15px;
+  width: 150px;
+  height: 50px;
+}

@@ -19,6 +19,7 @@ export class FileService {
 
   private fileToUpdate = new BehaviorSubject<any>([]);
   currentDetail = this.fileToUpdate.asObservable();
+  private currentFileName: any;
 
   constructor(private http: HttpClient) { }
 
@@ -64,7 +65,11 @@ export class FileService {
     return this.http.post(FILE_API + '/' + fileId + '/share', { userToShareId });
   }
 
+  getCurrentFileName() {
+    return this.currentFileName;
+  }
   setFile(fileToUpdate?: any) {
+    this.currentFileName = fileToUpdate.name;
     this.fileToUpdate.next(fileToUpdate);
   }
 }

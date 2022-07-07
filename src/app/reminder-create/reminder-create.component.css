@@ -1,0 +1,13 @@
+p {
+  font-family: Lato;
+}
+
+#root {
+  padding: 30px;
+}
+
+.reminder-form {
+  max-width: 350px;
+  margin: auto;
+  margin-top: 15px;
+}

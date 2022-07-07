@@ -24,8 +24,8 @@ export class ReminderCreateComponent implements OnInit, AfterViewInit {
     message: '',
     time: this.dateControl
   });
-  
-  constructor(private formBuilder: FormBuilder, private reminderService: ReminderService, private router: Router,  
+
+  constructor(private formBuilder: FormBuilder, private reminderService: ReminderService, private router: Router,
     private location: Location) { }
 
   ngOnInit(): void {

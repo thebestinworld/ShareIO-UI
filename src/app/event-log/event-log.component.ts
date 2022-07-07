@@ -22,7 +22,7 @@ export class EventLogComponent implements OnInit, AfterViewInit {
   public maxDate!: Date;
   public color: ThemePalette = 'primary';
 
-  displayedColumns: string[] = ['id', 'timestamp', 'userName', 'event', 'eventMessage','dynamicContent'];
+  displayedColumns: string[] = ['id', 'timestamp', 'userName', 'event', 'eventMessage', 'dynamicContent'];
   data: Notification[] = [];
   @ViewChild(MatSort) sort!: MatSort;
   resultsLength = 0;

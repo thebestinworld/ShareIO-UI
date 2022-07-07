@@ -1,13 +1,14 @@
-<form [formGroup]="versionForm" (ngSubmit)="onSubmit()">
-    <label>Choose Version to revert to</label>
-    <select required class="form-control" formControlName="version">
-      <option *ngFor="let version of versions" [value]="version"> {{version}}</option>
-    </select>
-    <p></p>
-    <div class="text-center">
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button class="btn btn-primary  mr-3" type="submit">Sumbit</button>
-        <button type="button" (click)="backClicked()" class="btn btn-success  mr-3">Back</button>
-      </div>
+<div class="revert-form">
+  <form [formGroup]="versionForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Choose Version to revert to</label>
+      <select required class="form-control" formControlName="version">
+        <option *ngFor="let version of versions" [value]="version"> {{version}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary  mr-1" type="submit">Sumbit</button>
+      <button (click)="backClicked()" type="button" class="btn btn-dark  mr-1 float-right">Back</button>
     </div>
   </form>
+</div>

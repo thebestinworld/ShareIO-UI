@@ -1,98 +1,48 @@
-<div class="text-center">
-    <form>
-        <div class="form-group row">
-            <label for="id" class="col-sm-2 col-form-label">Id</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="id" value="{{file?.id}}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">Name</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="name" value="{{file?.name}}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="originalName" class="col-sm-2 col-form-label">Original Name</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="originalName"
-                    value="{{file?.originalName}}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="description" class="col-sm-2 col-form-label">Description</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="description"
-                    value="{{file?.description}}">
-            </div>
-        </div>
-        <div *ngIf="file?.fileType==='IMAGE'">
-            <img width="480" height="340" [src]='image' class="img-thumbnail">
-        </div>
-        <div *ngIf="file?.fileType==='AUDIO'">
-            <audio #audioContainer muted="muted" controls="controls" autobuffer="autobuffer">
-                <source [src]='audio'>
-            </audio>
-        </div>
-        <div *ngIf="file?.fileType==='VIDEO'">
-            <video width="480" height="340" #videoContainer muted="muted" controls="controls" autobuffer="autobuffer">
-                <source [src]='video'>
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <img *ngIf="file?.fileType==='IMAGE'" class="card-img-top" [src]='image' class="img-thumbnail">
+            <video *ngIf="file?.fileType==='VIDEO'" class="card-video-top" controls="controls" autobuffer="autobuffer"
+                [src]='video'>
             </video>
-        </div>
-        <div class="form-group row">
-            <label for="extension" class="col-sm-2 col-form-label">Extension</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="extension" value="{{file?.extension}}">
+            <audio *ngIf="file?.fileType==='AUDIO'" class="card-top" controls="controls" autobuffer="autobuffer"
+                [src]='audio'>
+            </audio>
+            <div class="card-body">
+                <h5 class="card-title">{{file?.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{file?.id}}</h6>
+                <p class="card-text">{{file?.description}}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Uploader: {{file?.uploaderName}}</li>
+                <li class="list-group-item">Upload Date: {{file?.uploadDate}}</li>
+                <li class="list-group-item">Update Date: {{file?.updateDate}}</li>
+                <li class="list-group-item">Version: {{file?.version}}</li>
+                <li class="list-group-item">Original Name: {{file?.originalName}}</li>
+                <li class="list-group-item">Extension: {{file?.extension}}</li>
+            </ul>
+
+            <div class="card-body">
+                <a (click)="updateFile()" class="btn btn-primary mr-1">Update<span class="material-icons">
+                        update</span></a>
+                <a (click)="shareFile()" class="btn btn-success mr-1">Share<span class="material-icons">
+                        share</span></a>
+                <a (click)="revertFile()" class="btn btn-warning mr-1">Revert<span class="material-icons">
+                        history</span></a>
+                <a (click)="viewLogs()" class="btn btn-info mr-1">Logs<span class="material-icons">
+                        description</span></a>
+                <a (click)="deleteFile('')" class="btn btn-danger mr-1">Delete<span class="material-icons">
+                        delete</span></a>
+
             </div>
         </div>
-        <div class="form-group row">
-            <label for="version" class="col-sm-2 col-form-label">Version</label>
-            <div class="col-sm-10">
-                <input type="number" readonly class="form-control-plaintext" id="version" value="{{file?.version}}">
+    </div>
+    <div class="column">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Share IO</h5>
+                <p class="card-text">The best platform for sharing images, video or audio files !!!</p>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="uploadDate" class="col-sm-2 col-form-label">Upload Date</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="uploadDate" value="{{file?.uploadDate}}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="updateDate" class="col-sm-2 col-form-label">Update Date</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="updateDate" value="{{file?.updateDate}}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="uploaderName" class="col-sm-2 col-form-label">Uploader Name</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="uploaderName"
-                    value="{{file?.uploaderName}}">
-            </div>
-        </div>
-    </form>
-</div>
-<div class="text-center">
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <button (click)="updateFile()" class="btn btn-success mr-3">Update File <span class="material-icons">
-                update
-            </span></button>
-        <button (click)="shareFile()" *ngIf="showShare" class="btn btn-primary mr-3">Share File <span
-                class="material-icons">
-                share
-            </span></button>
-            <button (click)="revertFile()" *ngIf="showShare" class="btn btn-primary mr-3">Revert File <span
-                class="material-icons">
-                history
-            </span></button>
-            <button (click)="viewLogs()" *ngIf="showShare" class="btn btn-primary mr-3">View Logs <span
-                class="material-icons">
-                description
-            </span></button>
-        <button type=button class="btn btn-danger mr-3" *ngIf="showDelete" (click)="deleteFile('')">Delete File <span
-                class="material-icons">
-                delete
-            </span></button>
-        <button (click)="backClicked()" class="btn btn-success mr-3">Back</button>
     </div>
 </div>

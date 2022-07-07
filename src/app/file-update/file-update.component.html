@@ -1,30 +1,26 @@
-<div class="col-md-12">
-  <div class="card card-container">
-    <h3 class="text-center">File Upload</h3>
-    <form [formGroup]="fileUploadForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">
-          Name
-        </label>
-        <input id="name" type="text" class="form-control" formControlName="name">
-      </div>
+<div class="file-form">
+  <form [formGroup]="fileUploadForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">
+        Name
+      </label>
+      <input id="name" type="text" class="form-control" formControlName="name">
+    </div>
 
-      <div class="form-group">
-        <label for="file">Select a file</label>
-        <input type="file" (change)="fileUpload($event)">
-      </div>
-      <div class="form-group">
-        <label for="description">
-          Description
-        </label>
-        <input id="description" class="form-control" type="text" formControlName="description">
-      </div>
-      <div class="text-center">
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button class="btn btn-primary  mr-3" type="submit">Sumbit</button>
-          <button type="button" (click)="backClicked()" class="btn btn-success  mr-3">Back</button>
-        </div>
-      </div>
-    </form>
-  </div>
+    <div class="form-group">
+      <label for="file">Select a file</label>
+      <input type="file" (change)="fileUpload($event)">
+    </div>
+    <div class="form-group">
+      <label for="description">
+        Description
+      </label>
+      <input id="description" class="form-control" type="text" formControlName="description">
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-primary  mr-1" type="submit">Sumbit</button>
+      <button (click)="backClicked()" type="button" class="btn btn-dark  mr-1 float-right">Back</button>
+    </div>
+  </form>
 </div>

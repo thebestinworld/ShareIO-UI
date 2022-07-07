@@ -29,7 +29,6 @@
       </li>
       <app-notification></app-notification>
     </ul>
-
     <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
       <li class="nav-item">
         <a href="/register" class="nav-link" routerLink="register">Sign Up <span class="material-icons">
@@ -42,10 +41,9 @@
           </span></a>
       </li>
     </ul>
-
     <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
       <li class="nav-item">
-        <a href="/profile" class="nav-link" routerLink="profile">{{ username }} <span class="material-icons">
+        <a class="nav-link">{{ username }} <span class="material-icons">
             account_circle
           </span>
         </a>
@@ -57,7 +55,6 @@
       </li>
     </ul>
   </nav>
-
   <div class="container">
     <router-outlet></router-outlet>
   </div>

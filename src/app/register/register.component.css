@@ -1,18 +1,17 @@
 p {
-    font-family: Lato;
-  }
-  
-  #root {
-    padding: 30px;
-  }
-  
-  .register-form {
-    max-width: 350px;
-    margin: auto;
-    margin-top: 15px;   
-  }
+  font-family: Lato;
+}
 
-  .alert alert-success {
-    margin-top: 15px;   
-  }
-  
+#root {
+  padding: 30px;
+}
+
+.register-form {
+  max-width: 350px;
+  margin: auto;
+  margin-top: 15px;
+}
+
+.alert alert-success {
+  margin-top: 15px;
+}

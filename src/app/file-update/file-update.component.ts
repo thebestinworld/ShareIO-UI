@@ -16,7 +16,7 @@ export class FileUpdateComponent implements OnInit {
   fileUploadForm: any;
   selectedFile: any;
 
-  constructor(private fileService: FileService, private formBuilder: FormBuilder, private router: Router, 
+  constructor(private fileService: FileService, private formBuilder: FormBuilder, private router: Router,
     private location: Location) { }
 
   ngOnInit(): void {

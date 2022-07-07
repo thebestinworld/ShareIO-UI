@@ -1,17 +1,14 @@
-<div class="card mt-3">
-    <div class="card-header">Event Logs</div>
- 
-  </div>
-  
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Filter <span class="material-icons">
-          filter_alt
-        </span>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-  
+<br><br>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Filter <span class="material-icons">
+        filter_alt
+      </span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="wrapper">
     <div class="vertical-form-field">
       <div class="label">Id</div>
       <div>
@@ -22,19 +19,19 @@
       </div>
     </div>
     <div class="vertical-form-field">
-        <div class="label">Timestamp</div>
-        <div>
-          <mat-form-field>
-            <mat-label>Timestamp</mat-label>
-            <input required=true matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
-              [formControl]="timestampFilter" [min]="minDate" [max]="maxDate" [disabled]="false">
-            <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" [stepHour]="1" [stepMinute]="1"
-              [stepSecond]="1" [touchUi]="false" [color]="color" [enableMeridian]="false" [disableMinute]="false"
-              [hideTime]="false">
-            </ngx-mat-datetime-picker>
-          </mat-form-field>
-        </div>
+      <div class="label">Timestamp</div>
+      <div>
+        <mat-form-field>
+          <mat-label>Timestamp</mat-label>
+          <input required=true matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
+            [formControl]="timestampFilter" [min]="minDate" [max]="maxDate" [disabled]="false">
+          <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" [stepHour]="1" [stepMinute]="1"
+            [stepSecond]="1" [touchUi]="false" [color]="color" [enableMeridian]="false" [disableMinute]="false"
+            [hideTime]="false">
+          </ngx-mat-datetime-picker>
+        </mat-form-field>
+      </div>
     </div>
 
     <div class="vertical-form-field">
@@ -55,69 +52,67 @@
         </mat-form-field>
       </div>
     </div>
-    
+
     <div class="vertical-form-field">
-        <div class="label">Additonal Information</div>
-        <div>
-          <mat-form-field appearance="fill" class="no-label-field">
-            <mat-label>Additonal Information</mat-label>
-            <input [formControl]="dynamicContentFilter" matInput placeholder="Additonal Information">
-          </mat-form-field>
-        </div>
-    </div>
-
-    <div>
-      <button class="btn btn-primary" (click)="clearFilter()">
-        Clear Filter<i class="material-icons">clear</i>
-      </button>
-    </div>
-
-  </mat-expansion-panel>
-  <mat-card class="example-card">
-    <mat-card-title>Event Logs</mat-card-title>
-    <mat-card-content>
-      <div class="example-container mat-elevation-z8">
-        <div class="example-table-container">
-          <table mat-table [dataSource]="data" class="example-table" matSort matSortActive="id" matSortDisableClear
-            matSortDirection="desc">
-  
-            <ng-container matColumnDef="id">
-              <th mat-header-cell mat-sort-header *matHeaderCellDef>Id</th>
-              <td mat-cell *matCellDef="let row">{{row.id}}</td>
-            </ng-container>
-  
-            <ng-container matColumnDef="timestamp">
-              <th mat-header-cell mat-sort-header *matHeaderCellDef>Timestamp</th>
-              <td mat-cell *matCellDef="let row">{{row.timestamp}}</td>
-            </ng-container>
-  
-            <ng-container matColumnDef="userName">
-              <th mat-header-cell mat-sort-header *matHeaderCellDef>User Name</th>
-              <td mat-cell *matCellDef="let row">{{row.userName}}</td>
-            </ng-container>
-  
-            <ng-container matColumnDef="event">
-                <th mat-header-cell mat-sort-header *matHeaderCellDef>Event</th>
-                <td mat-cell *matCellDef="let row">{{row.event}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="eventMessage">
-                <th mat-header-cell mat-sort-header *matHeaderCellDef>Message</th>
-                <td mat-cell *matCellDef="let row">{{row.eventMessage}}</td>
-              </ng-container>
-
-            <ng-container matColumnDef="dynamicContent">
-              <th mat-header-cell mat-sort-header *matHeaderCellDef>Additional Information</th>
-              <td mat-cell *matCellDef="let row">{{row.dynamicContent}}</td>
-            </ng-container>
-           
-  
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-        </div>
-        <mat-paginator [length]="resultsLength" [pageSize]="5" aria-label="Select page of Reminder search results">
-        </mat-paginator>
+      <div class="label">Additonal Information</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>Additonal Information</mat-label>
+          <input [formControl]="dynamicContentFilter" matInput placeholder="Additonal Information">
+        </mat-form-field>
       </div>
-    </mat-card-content>
-  </mat-card>
+    </div>
+
+    <button (click)="clearFilter()" class="mat-stroked-button">Clear Filter <span class="material-icons">
+        restart_alt
+      </span></button>
+  </div>
+</mat-expansion-panel>
+<mat-card class="example-card">
+  <mat-card-title>Event Logs</mat-card-title>
+  <mat-card-content>
+    <div class="example-container mat-elevation-z8">
+      <div class="example-table-container">
+        <table mat-table [dataSource]="data" class="example-table" matSort matSortActive="id" matSortDisableClear
+          matSortDirection="desc">
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let row">{{row.id}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="timestamp">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Timestamp</th>
+            <td mat-cell *matCellDef="let row">{{row.timestamp}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="userName">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>User Name</th>
+            <td mat-cell *matCellDef="let row">{{row.userName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="event">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Event</th>
+            <td mat-cell *matCellDef="let row">{{row.event}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="eventMessage">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Message</th>
+            <td mat-cell *matCellDef="let row">{{row.eventMessage}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="dynamicContent">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Additional Information</th>
+            <td mat-cell *matCellDef="let row">{{row.dynamicContent}}</td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <mat-paginator [length]="resultsLength" [pageSize]="5" aria-label="Select page of Reminder search results">
+      </mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -13,59 +13,52 @@
       </span>
     </mat-panel-title>
   </mat-expansion-panel-header>
-
-  <div class="vertical-form-field">
-    <div class="label">Id</div>
-    <div>
-      <mat-form-field appearance="fill" class="no-label-field">
-        <mat-label>Id</mat-label>
-        <input type="number" [formControl]="idFilter" matInput placeholder="Id">
-      </mat-form-field>
+  <div class="wrapper">
+    <div class="vertical-form-field">
+      <div class="label">Id</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>Id</mat-label>
+          <input type="number" [formControl]="idFilter" matInput placeholder="Id">
+        </mat-form-field>
+      </div>
     </div>
-
-  </div>
-
-
-  <div class="vertical-form-field">
-    <div class="label">Message</div>
-    <div>
-      <mat-form-field appearance="fill" class="no-label-field">
-        <mat-label>Message</mat-label>
-        <input [formControl]="messageFilter" matInput placeholder="Message">
-      </mat-form-field>
+    <div class="vertical-form-field">
+      <div class="label">Message</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>Message</mat-label>
+          <input [formControl]="messageFilter" matInput placeholder="Message">
+        </mat-form-field>
+      </div>
     </div>
-  </div>
-  <div class="vertical-form-field">
-    <div class="label">Time</div>
-    <div>
-      <mat-form-field>
-        <mat-label>Time</mat-label>
-        <input required=true matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
-          [formControl]="timeFilter" [min]="minDate" [max]="maxDate" [disabled]="false">
-        <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
-        <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" [stepHour]="1" [stepMinute]="1"
-          [stepSecond]="1" [touchUi]="false" [color]="color" [enableMeridian]="false" [disableMinute]="false"
-          [hideTime]="false">
-        </ngx-mat-datetime-picker>
-      </mat-form-field>
+    <div class="vertical-form-field">
+      <div class="label">Time</div>
+      <div>
+        <mat-form-field>
+          <mat-label>Time</mat-label>
+          <input required=true matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
+            [formControl]="timeFilter" [min]="minDate" [max]="maxDate" [disabled]="false">
+          <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" [stepHour]="1" [stepMinute]="1"
+            [stepSecond]="1" [touchUi]="false" [color]="color" [enableMeridian]="false" [disableMinute]="false"
+            [hideTime]="false">
+          </ngx-mat-datetime-picker>
+        </mat-form-field>
+      </div>
     </div>
-  </div>
-
-
-  <div class="vertical-form-field">
-    <div class="label">Past Due</div>
-    <div>
-      <mat-form-field appearance="fill" class="no-label-field">
-        <mat-label>Past Due</mat-label>
-        <input [formControl]="pastDueFilter" matInput placeholder="Past Due">
-      </mat-form-field>
+    <div class="vertical-form-field">
+      <div class="label">Past Due</div>
+      <div>
+        <mat-form-field appearance="fill" class="no-label-field">
+          <mat-label>Past Due</mat-label>
+          <input [formControl]="pastDueFilter" matInput placeholder="Past Due">
+        </mat-form-field>
+      </div>
     </div>
-  </div>
-  <div>
-    <button class="btn btn-primary" (click)="clearFilter()">
-      Clear Filter<i class="material-icons">clear</i>
-    </button>
-
+    <button (click)="clearFilter()" class="mat-stroked-button">Clear Filter <span class="material-icons">
+        restart_alt
+      </span></button>
   </div>
 </mat-expansion-panel>
 <mat-card class="example-card">

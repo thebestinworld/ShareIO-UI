@@ -17,7 +17,7 @@ export class RevertComponent implements OnInit {
   })
 
 
-  constructor(private revertService: RevertService, private activatedRoute: ActivatedRoute, private fb: FormBuilder, 
+  constructor(private revertService: RevertService, private activatedRoute: ActivatedRoute, private fb: FormBuilder,
     private location: Location, private router: Router) { }
 
   ngOnInit(): void {

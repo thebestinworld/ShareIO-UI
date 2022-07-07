@@ -20,9 +20,9 @@ export class FileDataUploadComponent implements OnInit {
   message = '';
   fileId?: string;
 
-  constructor(private fileUploadService: FileUploadService, 
-              private eventBusService: EventBusService,
-              private router: Router) { }
+  constructor(private fileUploadService: FileUploadService,
+    private eventBusService: EventBusService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.fileUploadService.currentDetail.subscribe({
