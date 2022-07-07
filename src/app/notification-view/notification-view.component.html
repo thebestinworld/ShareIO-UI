@@ -45,8 +45,10 @@
       <div class="label">Is Read</div>
       <div>
         <mat-form-field appearance="fill" class="no-label-field">
-          <mat-label>Is Read</mat-label>
-          <input [formControl]="isReadFilter" matInput placeholder="Is Read">
+          <mat-select [formControl]="isReadFilter" placeholder="Is Read">
+            <mat-option value="YES">Yes</mat-option>
+            <mat-option value="NO">No</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </div>

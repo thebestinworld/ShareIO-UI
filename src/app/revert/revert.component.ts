@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./revert.component.css']
 })
 export class RevertComponent implements OnInit {
-
+  selectedValue = 0;
   versions: any;
   versionForm = this.fb.group({
     version: ''
@@ -28,8 +28,13 @@ export class RevertComponent implements OnInit {
     const fileId = this.activatedRoute.snapshot.paramMap.get('id');
     this.revertService.getFileVersions(fileId)
       .subscribe(data => {
-        this.versions = data;
-        this.versionForm.controls['version'].setValue(data[0].id);
+        if (!data.length) {
+          this.versionForm.controls['version'].disable()
+        } else {
+          this.versions = data;
+          this.versionForm.controls['version'].setValue(data[0]);
+        }
+
       });
   }
 

@@ -51,8 +51,10 @@
       <div class="label">Past Due</div>
       <div>
         <mat-form-field appearance="fill" class="no-label-field">
-          <mat-label>Past Due</mat-label>
-          <input [formControl]="pastDueFilter" matInput placeholder="Past Due">
+          <mat-select [formControl]="pastDueFilter" placeholder="Past Due">
+            <mat-option value="YES">Yes</mat-option>
+            <mat-option value="NO">No</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </div>

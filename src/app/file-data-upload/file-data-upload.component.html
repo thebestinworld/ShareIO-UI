@@ -13,9 +13,10 @@
         </div>
     </div>
     <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
-</div>
-<div class="text-center">
-    <button class="btn btn-success mr-1" [disabled]="!selectedFiles" (click)="upload()">
-        Upload
-    </button>
+    <div class="form-group">
+        <button class="btn btn-success mr-1" [disabled]="!selectedFiles" (click)="upload()">
+            Upload
+        </button>
+        <button (click)="backClicked()" type="button" class="btn btn-dark  mr-1 float-right">Cancel</button>
+    </div>
 </div>

@@ -47,12 +47,15 @@
       <div class="label">Event</div>
       <div>
         <mat-form-field appearance="fill" class="no-label-field">
-          <mat-label>Event</mat-label>
-          <input [formControl]="eventFilter" matInput placeholder="Event">
+          <mat-select [formControl]="eventFilter" placeholder="Event">
+            <mat-option value="UPLOADED">File Uploaded</mat-option>
+            <mat-option value="UPDATED">File Updated</mat-option>
+            <mat-option value="REVERTED">File Reverted</mat-option>
+            <mat-option value="SHARED">File Shared</mat-option>      
+          </mat-select>
         </mat-form-field>
       </div>
     </div>
-
     <div class="vertical-form-field">
       <div class="label">Additonal Information</div>
       <div>

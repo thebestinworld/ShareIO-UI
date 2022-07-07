@@ -85,7 +85,7 @@ export class ReminderComponent implements OnInit, AfterViewInit {
     this.pastDueFilter.valueChanges
       .subscribe(
         pastDue => {
-          this.filterValues.originalFileName = pastDue;
+          this.filterValues.pastDue = pastDue;
         }
       )
 

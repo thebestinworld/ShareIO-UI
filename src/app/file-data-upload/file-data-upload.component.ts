@@ -2,6 +2,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FileUploadService } from '../_services/file-upload.service';
+import { FileService } from '../_services/file.service';
 import { EventBusService } from '../_shared/event-bus.service';
 import { EventData } from '../_shared/event.class';
 
@@ -22,6 +23,7 @@ export class FileDataUploadComponent implements OnInit {
 
   constructor(private fileUploadService: FileUploadService,
     private eventBusService: EventBusService,
+    private fileService: FileService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -37,7 +39,14 @@ export class FileDataUploadComponent implements OnInit {
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
   }
+  backClicked() {
+    this.fileService.deleteFile(this.fileId).subscribe({
+      next: (data) => {
+        this.router.navigate(['/file'])
 
+      },
+    });
+  }
   upload(): void {
     this.progress = 0;
     if (this.selectedFiles) {

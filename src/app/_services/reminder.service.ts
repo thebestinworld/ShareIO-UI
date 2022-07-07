@@ -22,6 +22,7 @@ export class ReminderService {
 
   getReminders(sort: string, order: SortDirection, page: number, size: number,
     id: number, message: string, time: Date, pastDue: string): Observable<any> {
+      console.log(pastDue)
     return this.http.post<ReminderList>(REMINDER_API, { sort, order, page, size, id, message, time, pastDue });
   }
 
