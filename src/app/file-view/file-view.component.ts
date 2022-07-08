@@ -29,7 +29,7 @@ export class FileViewComponent implements OnInit, AfterViewInit {
   @ViewChild('videoContainer', { static: true }) videoContainer: any;
 
   constructor(private fileService: FileService, private tokenService: TokenStorageService, private activatedRoute: ActivatedRoute,
-    private route: Router, private sanitizer: DomSanitizer, private location: Location,  private eventBusService: EventBusService) {
+    private route: Router, private sanitizer: DomSanitizer, private location: Location, private eventBusService: EventBusService) {
   }
 
   ngAfterViewInit(): void {
@@ -40,38 +40,46 @@ export class FileViewComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.fileService.getFile(id)
-    .subscribe({ next: (data) => {
-      this.file = data
-      this.showShare = this.file.uploaderId === this.tokenService.getUser().id
-      this.showDelete = this.file.uploaderId === this.tokenService.getUser().id;
-      /*Handle image*/
-      if (this.file.extension === 'png') {
-        this.image = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${this.file.encodedData}`);
-      }
-      if (this.file.extension === 'jpeg') {
-        this.image = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/jpeg;base64, ${this.file.encodedData}`);
-      }
-      /*Handle audio*/
-      if (this.file.extension === 'mp3') {
-        this.audio = this.sanitizer.bypassSecurityTrustResourceUrl(`data:audio/mp3;base64, ${this.file.encodedData}`);
-      }
-      if (this.file.extension === 'wav') {
-        this.audio = this.sanitizer.bypassSecurityTrustResourceUrl(`data:audio/wav;base64, ${this.file.encodedData}`);
-      }
-      /*Handle video*/
-      if (this.file.extension === 'mp4') {
-        this.video = this.sanitizer.bypassSecurityTrustResourceUrl(`data:video/mp4;base64, ${this.file.encodedData}`);
-      }
-      if (this.file.extension === 'webm') {
-        this.video = this.sanitizer.bypassSecurityTrustResourceUrl(`data:video/webm;base64, ${this.file.encodedData}`);
-      }
-    },
-    error: (e)=> {
-      if (e.message === 'Refresh Token Expired') {
-        this.eventBusService.emit(new EventData('logout', null));
-        this.route.navigate(['/'])
-      }
-    }});
+      .subscribe({
+        next: (data) => {
+          this.file = data
+          this.showShare = this.file.uploaderId === this.tokenService.getUser().id
+          this.showDelete = this.file.uploaderId === this.tokenService.getUser().id;
+          /*Handle image*/
+          if (this.file.extension === 'png') {
+            this.image = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${this.file.encodedData}`);
+          }
+          if (this.file.extension === 'jpg') {
+            this.image = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/jpg;base64, ${this.file.encodedData}`);
+          }
+          if (this.file.extension === 'gif') {
+            this.image = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/gif;base64, ${this.file.encodedData}`);
+          }
+          /*Handle audio*/
+          if (this.file.extension === 'mp3') {
+            this.audio = this.sanitizer.bypassSecurityTrustResourceUrl(`data:audio/mp3;base64, ${this.file.encodedData}`);
+          }
+          if (this.file.extension === 'wav') {
+            this.audio = this.sanitizer.bypassSecurityTrustResourceUrl(`data:audio/wav;base64, ${this.file.encodedData}`);
+          }
+          /*Handle video*/
+          if (this.file.extension === 'mp4') {
+            this.video = this.sanitizer.bypassSecurityTrustResourceUrl(`data:video/mp4;base64, ${this.file.encodedData}`);
+          }
+          if (this.file.extension === 'webm') {
+            this.video = this.sanitizer.bypassSecurityTrustResourceUrl(`data:video/webm;base64, ${this.file.encodedData}`);
+          }
+          if (this.file.extension === 'ogg') {
+            this.video = this.sanitizer.bypassSecurityTrustResourceUrl(`data:video/ogg;base64, ${this.file.encodedData}`);
+          }
+        },
+        error: (e) => {
+          if (e.message === 'Refresh Token Expired') {
+            this.eventBusService.emit(new EventData('logout', null));
+            this.route.navigate(['/'])
+          }
+        }
+      });
   }
 
   updateFile() {

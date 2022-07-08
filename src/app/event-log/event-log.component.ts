@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, map, merge, Observable, of, startWith, switchMap } from 'rxjs';
 import { EventLogService } from '../_services/event-log.service';
 import { TokenStorageService } from '../_services/token-storage.service';
@@ -45,14 +45,15 @@ export class EventLogComponent implements OnInit, AfterViewInit {
     dynamicContent: ''
   }
 
-  constructor(private eventLogService: EventLogService, private token: TokenStorageService, 
-    private eventBusService: EventBusService, private router: Router) { }
- 
+  constructor(private eventLogService: EventLogService, private token: TokenStorageService,
+    private eventBusService: EventBusService, private router: Router, private activatedRoute: ActivatedRoute) { }
+
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
   }
 
   ngAfterViewInit() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     this.idFilter.valueChanges
@@ -102,13 +103,13 @@ export class EventLogComponent implements OnInit, AfterViewInit {
 
       switchMap(() => {
         return this.eventLogService!.getLogs(this.sort.active,
-          this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize,
+          this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize, id,
           this.filterValues.id,
           this.filterValues.timestamp,
           this.filterValues.userName,
           this.filterValues.event,
           this.filterValues.dynamicContent)
-          .pipe( catchError((err, caught) => {
+          .pipe(catchError((err, caught) => {
             if (err.message === 'Refresh Token Expired') {
               this.eventBusService.emit(new EventData('logout', null));
               this.router.navigate(['/'])

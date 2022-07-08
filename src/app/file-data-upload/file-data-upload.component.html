@@ -3,7 +3,8 @@
         <label for="file">
             File
         </label>
-        <input class="form-control" type="file" id="formFile" (change)="selectFile($event)">
+        <input class="form-control" type="file" id="formFile" accept=".png,.mp3,.wav,.mp4,.ogg,.webm,.jpg,.gif"
+            (change)="selectFile($event)">
     </div>
     <div *ngIf="currentFile" class="progress my-3">
         <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"

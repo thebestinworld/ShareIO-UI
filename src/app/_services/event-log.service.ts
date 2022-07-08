@@ -18,10 +18,11 @@ export class EventLogService {
   constructor(private http: HttpClient) { }
 
   getLogs(sort: string, order: SortDirection, page: number, size: number,
+    fileId: any,
     id: number, timestamp: Date, userName: string, eventType: string, dynamicContent: string): Observable<any> {
     return this.http
       .post<EventLogList>(`${EVENT_LOG_API}`,
-        { sort, order, page, size, id, timestamp, userName, eventType, dynamicContent },
+        { sort, order, page, size, fileId, id, timestamp, userName, eventType, dynamicContent },
         httpOptions
       );
   }
