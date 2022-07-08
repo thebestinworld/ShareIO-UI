@@ -32,6 +32,10 @@ export class FileDataUploadComponent implements OnInit {
         this.fileId = data;
       },
       error: (e) => {
+        if (e.message === 'Refresh Token Expired') {
+          this.eventBusService.emit(new EventData('logout', null));
+          this.router.navigate(['/'])
+        }
       }
     });
   }

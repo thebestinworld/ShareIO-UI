@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FileService } from '../_services/file.service';
 import { UserService } from '../_services/user.service';
 import { Location } from '@angular/common';
+import { EventBusService } from '../_shared/event-bus.service';
+import { EventData } from '../_shared/event.class';
 
 @Component({
   selector: 'app-share-file',
@@ -20,7 +22,7 @@ export class ShareFileComponent implements OnInit {
 
   constructor(private userService: UserService, private fb: FormBuilder,
     private activatedRoute: ActivatedRoute, private fileService: FileService, private router: Router,
-    private location: Location) {
+    private location: Location, private eventBusService: EventBusService) {
   }
 
   ngOnInit(): void {
@@ -30,10 +32,16 @@ export class ShareFileComponent implements OnInit {
 
   getSelectedUser(): void {
     this.userService.getUserForShare()
-      .subscribe(data => {
+      .subscribe({next: (data) => {
         this.users = data;
         this.shareUserForm.controls['userId'].setValue(data[0].id);
-      });
+      },
+      error: (e) => {
+        if (e.message === 'Refresh Token Expired') {
+          this.eventBusService.emit(new EventData('logout', null));
+          this.router.navigate(['/'])
+        }
+      }});
   }
 
   onSubmit(): void {

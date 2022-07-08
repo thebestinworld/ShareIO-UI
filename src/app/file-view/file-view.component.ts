@@ -7,6 +7,8 @@ import { FileDTO } from '../_models/file';
 import { FileService } from '../_services/file.service';
 import { Location } from '@angular/common';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { EventBusService } from '../_shared/event-bus.service';
+import { EventData } from '../_shared/event.class';
 
 @Component({
   selector: 'app-file-view',
@@ -27,7 +29,7 @@ export class FileViewComponent implements OnInit, AfterViewInit {
   @ViewChild('videoContainer', { static: true }) videoContainer: any;
 
   constructor(private fileService: FileService, private tokenService: TokenStorageService, private activatedRoute: ActivatedRoute,
-    private route: Router, private sanitizer: DomSanitizer, private location: Location) {
+    private route: Router, private sanitizer: DomSanitizer, private location: Location,  private eventBusService: EventBusService) {
   }
 
   ngAfterViewInit(): void {
@@ -37,7 +39,8 @@ export class FileViewComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.fileService.getFile(id).subscribe(data => {
+    this.fileService.getFile(id)
+    .subscribe({ next: (data) => {
       this.file = data
       this.showShare = this.file.uploaderId === this.tokenService.getUser().id
       this.showDelete = this.file.uploaderId === this.tokenService.getUser().id;
@@ -62,7 +65,13 @@ export class FileViewComponent implements OnInit, AfterViewInit {
       if (this.file.extension === 'webm') {
         this.video = this.sanitizer.bypassSecurityTrustResourceUrl(`data:video/webm;base64, ${this.file.encodedData}`);
       }
-    });
+    },
+    error: (e)=> {
+      if (e.message === 'Refresh Token Expired') {
+        this.eventBusService.emit(new EventData('logout', null));
+        this.route.navigate(['/'])
+      }
+    }});
   }
 
   updateFile() {

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { FileDTO } from '../_models/file';
 import { FileService } from '../_services/file.service';
 import { Location } from '@angular/common';
+import { EventData } from '../_shared/event.class';
+import { EventBusService } from '../_shared/event-bus.service';
 
 @Component({
   selector: 'app-file-update',
@@ -17,7 +19,7 @@ export class FileUpdateComponent implements OnInit {
   selectedFile: any;
 
   constructor(private fileService: FileService, private formBuilder: FormBuilder, private router: Router,
-    private location: Location) { }
+    private location: Location, private eventBusService: EventBusService,) { }
 
   ngOnInit(): void {
     this.fileService.currentDetail.subscribe({
@@ -29,6 +31,10 @@ export class FileUpdateComponent implements OnInit {
         });
       },
       error: (e) => {
+        if (e.message === 'Refresh Token Expired') {
+          this.eventBusService.emit(new EventData('logout', null));
+          this.router.navigate(['/'])
+        }
       }
     });
   }

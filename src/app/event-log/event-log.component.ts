@@ -4,9 +4,12 @@ import { FormControl } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
 import { catchError, map, merge, Observable, of, startWith, switchMap } from 'rxjs';
 import { EventLogService } from '../_services/event-log.service';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { EventBusService } from '../_shared/event-bus.service';
+import { EventData } from '../_shared/event.class';
 
 @Component({
   selector: 'app-event-log',
@@ -42,8 +45,9 @@ export class EventLogComponent implements OnInit, AfterViewInit {
     dynamicContent: ''
   }
 
-  constructor(private eventLogService: EventLogService, private token: TokenStorageService) { }
-
+  constructor(private eventLogService: EventLogService, private token: TokenStorageService, 
+    private eventBusService: EventBusService, private router: Router) { }
+ 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
   }
@@ -104,7 +108,13 @@ export class EventLogComponent implements OnInit, AfterViewInit {
           this.filterValues.userName,
           this.filterValues.event,
           this.filterValues.dynamicContent)
-          .pipe(catchError(() => of(null)));
+          .pipe( catchError((err, caught) => {
+            if (err.message === 'Refresh Token Expired') {
+              this.eventBusService.emit(new EventData('logout', null));
+              this.router.navigate(['/'])
+            }
+            return caught;
+          }));
       }),
       map(data => {
         if (data === null) {

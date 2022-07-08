@@ -8,6 +8,8 @@ import { Reminder, ReminderList } from '../_interface/reminder';
 import { FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { ThemePalette } from '@angular/material/core';
+import { EventBusService } from '../_shared/event-bus.service';
+import { EventData } from '../_shared/event.class';
 
 @Component({
   selector: 'app-reminder',
@@ -40,7 +42,8 @@ export class ReminderComponent implements OnInit, AfterViewInit {
     pastDue: ''
   }
 
-  constructor(private reminderService: ReminderService, private router: Router) { }
+  constructor(private reminderService: ReminderService, private router: Router, 
+    private eventBusService: EventBusService) { }
 
   ngOnInit(): void {
   }
@@ -105,7 +108,13 @@ export class ReminderComponent implements OnInit, AfterViewInit {
           this.filterValues.message,
           this.filterValues.time,
           this.filterValues.pastDue)
-          .pipe(catchError(() => of(null)));
+          .pipe(catchError((err, caught) => {
+            if (err.message === 'Refresh Token Expired') {
+              this.eventBusService.emit(new EventData('logout', null));
+              this.router.navigate(['/'])
+            }
+            return caught;
+          }));
       }),
       map(data => {
         if (data === null) {

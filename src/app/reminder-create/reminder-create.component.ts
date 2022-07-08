@@ -6,6 +6,8 @@ import { ReminderService } from '../_services/reminder.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
+import { EventData } from '../_shared/event.class';
+import { EventBusService } from '../_shared/event-bus.service';
 
 @Component({
   selector: 'app-reminder-create',
@@ -26,7 +28,7 @@ export class ReminderCreateComponent implements OnInit, AfterViewInit {
   });
 
   constructor(private formBuilder: FormBuilder, private reminderService: ReminderService, private router: Router,
-    private location: Location) { }
+    private location: Location,  private eventBusService: EventBusService) { }
 
   ngOnInit(): void {
   }
@@ -42,7 +44,10 @@ export class ReminderCreateComponent implements OnInit, AfterViewInit {
         this.router.navigate(['reminder']);
       },
       error: (e) => {
-        console.log(e);
+        if (e.message === 'Refresh Token Expired') {
+          this.eventBusService.emit(new EventData('logout', null));
+          this.router.navigate(['/'])
+        }
       }
     })
   }

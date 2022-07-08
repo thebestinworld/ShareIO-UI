@@ -12,6 +12,9 @@ import { startWith, switchMap, catchError, map, debounceTime, distinctUntilChang
 import { FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
+import { EventBusService } from '../_shared/event-bus.service';
+import { Router } from '@angular/router';
+import { EventData } from '../_shared/event.class';
 
 @Component({
   selector: 'app-file',
@@ -55,7 +58,8 @@ export class FileComponent implements OnInit, AfterViewInit {
 
   }
 
-  constructor(private fileService: FileService, private token: TokenStorageService) { }
+  constructor(private fileService: FileService, private token: TokenStorageService, 
+    private eventBusService: EventBusService, private router: Router) { }
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
@@ -170,7 +174,13 @@ export class FileComponent implements OnInit, AfterViewInit {
           this.filterValues.uploadDate,
           this.filterValues.updateDate,
           this.filterValues.uploaderName)
-          .pipe(catchError(() => of(null)));
+          .pipe(catchError((err, caught) => {
+            if (err.message === 'Refresh Token Expired') {
+              this.eventBusService.emit(new EventData('logout', null));
+              this.router.navigate(['/'])
+            }
+            return caught;
+          }));
       }),
       map(data => {
         if (data === null) {

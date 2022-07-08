@@ -4,9 +4,12 @@ import { FormControl } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
 import { catchError, map, merge, Observable, of, startWith, switchMap } from 'rxjs';
 import { NotificationService } from '../_services/notification.service';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { EventBusService } from '../_shared/event-bus.service';
+import { EventData } from '../_shared/event.class';
 
 @Component({
   selector: 'app-notification-view',
@@ -41,7 +44,8 @@ export class NotificationViewComponent implements OnInit, AfterViewInit {
     isRead: ''
   }
 
-  constructor(private notificationService: NotificationService, private token: TokenStorageService) { }
+  constructor(private notificationService: NotificationService, private token: TokenStorageService,
+    private eventBusService: EventBusService, private router: Router) { }
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
@@ -94,7 +98,13 @@ export class NotificationViewComponent implements OnInit, AfterViewInit {
           this.filterValues.message,
           this.filterValues.receivedDate,
           this.filterValues.isRead)
-          .pipe(catchError(() => of(null)));
+          .pipe(catchError((err, caught) => {
+            if (err.message === 'Refresh Token Expired') {
+              this.eventBusService.emit(new EventData('logout', null));
+              this.router.navigate(['/'])
+            }
+            return caught;
+          }));
       }),
       map(data => {
         if (data === null) {
